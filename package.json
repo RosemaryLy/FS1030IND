@@ -2,7 +2,7 @@
   "name": "fs1030ind",
   "version": "1.0.0",
   "description": "Individual_Project_for_FS1030",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js"
