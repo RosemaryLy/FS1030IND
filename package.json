@@ -1,0 +1,19 @@
+{
+  "name": "fs1030ind",
+  "version": "1.0.0",
+  "description": "Individual_Project_for_FS1030",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RosemaryLy/FS1030IND.git"
+  },
+  "author": "Rosemary_Ly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RosemaryLy/FS1030IND/issues"
+  },
+  "homepage": "https://github.com/RosemaryLy/FS1030IND#readme"
+}
