@@ -1,12 +1,17 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const mysql = require('mysql');
+const bodyParser = require('body-parser');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-
 const app = express();
 
+const {getHomePage} = require('./routes/index');
+const {addPortfolio, addPortfolioPage, DeletePortfolio, editPortfolio, editPortfolioPage} = require ('./routes/portfolio');
+const {addResume, addResumePage, DeleteResume, editResume, editResumePage} =require('./routes/resume')
+
+const PORT = process.env.PORT || 8000;
 
 
 
@@ -33,7 +38,10 @@ app.set('view engine', 'ejs');
 
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // parse form data client
+app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
+app.use(fileUpload()); // configure fileupload
 // Express session
 app.use(
   session({
@@ -59,9 +67,21 @@ app.use(function(req, res, next) {
 });
 
 // Routes
-app.use('/', require('./routes/index.js'));
-app.use('/users', require('./routes/users.js'));
+app.get('/', getHomePage);
+app.get('/add', addPortfolioPage);
+app.get('/edit/:id', editPortfolioPage);
+app.get('/delete/:id', DeletePortfolio);
+app.post('/add', addPortfolio);
+app.post('/edit/:id', editPortfolio);
+
+
+app.get('/add', addResumePage);
+app.get('/edit/:id', editResumePage);
+app.get('/delete/:id', DeleteResume);
+app.post('/add', addResume);
+app.post('/edit/:id', editResume);
 
 const PORT = process.env.PORT || 8000;
 
+//set the app to listen on the port
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
