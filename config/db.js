@@ -1,9 +1,9 @@
 var mysql = require('mysql');
 var connection = mysql.createConnection({
 	host:'localhost',
-	user:'USERNAME_HERE',
-	password:'PASSWORD_HERE',
-	database:'DATABASE_NAME_HERE'
+	user:'nodeclient',
+	password:'123456',
+	database:'MyPortfolio'
 });
 connection.connect(function(error){
 	if(!!error) {

@@ -15,9 +15,9 @@ const db = require('./config/db').mysql
 // Connect to mySQL
 var connection = mysql.createConnection({
 	host:'localhost',
-	user:'USERNAME_HERE',
-	password:'PASSWORD_HERE',
-	database:'DATABASE_NAME_HERE'
+	user:'nodeclient',
+	password:'123456',
+	database:'MyPortfolio'
 });
 connection.connect(function(error){
 	if(!!error) {
@@ -64,6 +64,6 @@ app.use(function(req, res, next) {
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 
-const PORT = process.env.PORT || 8090;
+const PORT = process.env.PORT || 3306;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
