@@ -11,8 +11,7 @@ const app = express();
 require('./config/passport')(passport);
 
 // DB Config
-const db = require('./config/keys').mongoURI;
-
+const db = require('./config/db').mysql
 // Connect to mySQL
 var connection = mysql.createConnection({
 	host:'localhost',
