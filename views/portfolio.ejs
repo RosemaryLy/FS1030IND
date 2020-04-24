@@ -1,4 +1,4 @@
-<% include partials/header.ejs %>
+
     <div class="table-wrapper">
         <% if (portfolio.length > 0) {%>
             <table class="table table-hovered">
@@ -11,10 +11,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% players.forEach((portfolio, index) => { %>
+                    <% portfolio.forEach((portfolio, index) => { %>
                         <tr>
                             <th scope="row"><%= portfolio.id %></th>
-                            <td><img src="/assets/img/<%= player.image %>" class="rounded-circle player-img" alt=""></td>
+                            <td><img src="" class="rounded-circle player-img" alt=""></td>
                             <td><%= player.title %></td>
                             <td><%= player.description %></td>
                             <td><%= player.link %></td>
