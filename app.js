@@ -10,14 +10,13 @@ const app = express();
 // Passport Config
 require('./config/passport')(passport);
 
-// DB Config
-const db = require('./config/db').mysql
+
 // Connect to mySQL
-var connection = mysql.createConnection({
+let connection = mysql.createConnection({
 	host:'localhost',
 	user:'nodeclient',
 	password:'123456',
-	database:'MyPortfolio'
+	database:'fs1030project'
 });
 connection.connect(function(error){
 	if(!!error) {

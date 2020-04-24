@@ -3,7 +3,7 @@ var connection = mysql.createConnection({
 	host:'localhost',
 	user:'nodeclient',
 	password:'123456',
-	database:'MyPortfolio'
+	database:'FS1030PROJECT'
 });
 connection.connect(function(error){
 	if(!!error) {
