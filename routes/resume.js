@@ -2,35 +2,39 @@ var express = require('express');
 var router = express.Router();
 var dbConn  = require('../config/db');
  
-// display portfolios page
+// display resume page
 router.get('/', function(req, res, next) {
       
-    dbConn.query('SELECT * FROM portfolios ORDER BY id desc',function(err,rows)     {
+    dbConn.query('SELECT * FROM resume ORDER BY id desc',function(err,rows)     {
  
         if(err) {
             req.flash('error', err);
-            // render to views/portfolios/index.ejs
-            res.render('portfolios',{data:''});   
+            // render to views/Resume/index.ejs
+            res.render('Resume',{data:''});   
         } else {
-            // render to views/portfolios/index.ejs
-            res.render('portfolios',{data:rows});
+            // render to views/Resume/index.ejs
+            res.render('Resume',{data:rows});
         }
     });
 });
 
-// display add portfolio page
+// display add Resume page
 router.get('/add', function(req, res, next) {    
     // render to add.ejs
-    res.render('portfolios/add', {
-        name: '',
-        description: ''        
+    res.render('Resume/add', {
+        date: '',
+        employer: ''   ,
+        position:  ''   ,
+        description: '' 
     })
 })
 
-// add a new portfolio item
+// add a new resume item
 router.post('/add', function(req, res, next) {    
 
-    let name = req.body.name;
+    let date = req.body.date;
+    let employer = req.body.employer;
+    let position = req.body.position;
     let description = req.body.description;
     let errors = false;
 
@@ -40,9 +44,12 @@ router.post('/add', function(req, res, next) {
         // set flash message
         req.flash('error', "Please enter name and description");
         // render to add.ejs with flash message
-        res.render('portfolios/add', {
-            name: name,
+        res.render('Resume/add', {
+            date: date,
+            employer: employer,
+            position: position,
             description: description
+
         })
     }
 
@@ -50,49 +57,55 @@ router.post('/add', function(req, res, next) {
     if(!errors) {
 
         var form_data = {
-            name: name,
+            date: date,
+            employer: employer,
+            position: position,
             description: description
         }
         
         // insert query
-        dbConn.query('INSERT INTO portfolios SET ?', form_data, function(err, result) {
+        dbConn.query('INSERT INTO resume SET ?', form_data, function(err, result) {
             //if(err) throw err
             if (err) {
                 req.flash('error', err)
                  
                 // render to add.ejs
-                res.render('portfolios/add', {
-                    name: form_data.name,
+                res.render('Resume/add', {
+                    date: form_data.date,
+                    employer: form_data.employer ,
+                    position: form_data.position ,
                     description: form_data.description                   
                 })
             } else {                
-                req.flash('success', 'portfolio item successfully added');
-                res.redirect('/portfolios');
+                req.flash('success', 'resume item successfully added');
+                res.redirect('/resume');
             }
         })
     }
 })
 
-// display edit portfolio page
+// display edit resume  page
 router.get('/edit/(:id)', function(req, res, next) {
 
     let id = req.params.id;
    
-    dbConn.query('SELECT * FROM portfolios WHERE id = ' + id, function(err, rows, fields) {
+    dbConn.query('SELECT * FROM resume WHERE id = ' + id, function(err, rows, fields) {
         if(err) throw err
          
         // if user not found
         if (rows.length <= 0) {
-            req.flash('error', 'Book not found with id = ' + id)
-            res.redirect('/portfolios')
+            req.flash('error', 'resume item not found with id = ' + id)
+            res.redirect('/resume')
         }
-        // if book found
+        // if resume item found
         else {
             // render to edit.ejs
-            res.render('portfolios/edit', {
-                title: 'Edit Portfolio Item', 
+            res.render('Resume/edit', {
+                title: 'Edit Resume Item', 
                 id: rows[0].id,
-                name: rows[0].name,
+                date: rows[0].date,
+                employer: rows[0].employer,
+                position: rows[0].position,
                 description: rows[0].description
             })
         }
@@ -103,19 +116,23 @@ router.get('/edit/(:id)', function(req, res, next) {
 router.post('/update/:id', function(req, res, next) {
 
     let id = req.params.id;
-    let name = req.body.name;
+    let date = req.body.date;
+    let employer = req.body.employer;
+    let position = req.body.position;
     let description = req.body.description;
     let errors = false;
 
-    if(name.length === 0 || description.length === 0) {
+    if(date.length === 0 || employer.length === 0) {
         errors = true;
         
         // set flash message
-        req.flash('error', "Please enter name and description");
+        req.flash('error', "Please enter date and employer information");
         // render to add.ejs with flash message
-        res.render('portfolios/edit', {
+        res.render('Resume/edit', {
             id: req.params.id,
-            name: name,
+            date: date,
+            employer: employer,
+            position: position,
             description: description
         })
     }
@@ -124,46 +141,50 @@ router.post('/update/:id', function(req, res, next) {
     if( !errors ) {   
  
         var form_data = {
-            name: name,
+            date: date,
+            employer: employer,
+            position: position,
             description: description
         }
         // update query
-        dbConn.query('UPDATE portfolios SET ? WHERE id = ' + id, form_data, function(err, result) {
+        dbConn.query('UPDATE resume SET ? WHERE id = ' + id, form_data, function(err, result) {
             //if(err) throw err
             if (err) {
                 // set flash message
                 req.flash('error', err)
                 // render to edit.ejs
-                res.render('portfolios/edit', {
+                res.render('Resume/edit', {
                     id: req.params.id,
-                    name: form_data.name,
+                    date: form_data.date,
+                    employer: form_data.employer,
+                    position: form_data.position,
                     description: form_data.description
                 })
             } else {
-                req.flash('success', 'portfolio item successfully updated');
-                res.redirect('/portfolios');
+                req.flash('success', 'resume item successfully updated');
+                res.redirect('/resume');
             }
         })
     }
 })
    
-// delete portoflio item
+// delete resume item
 router.get('/delete/(:id)', function(req, res, next) {
 
     let id = req.params.id;
      
-    dbConn.query('DELETE FROM portfolios WHERE id = ' + id, function(err, result) {
+    dbConn.query('DELETE FROM resume WHERE id = ' + id, function(err, result) {
         //if(err) throw err
         if (err) {
             // set flash message
             req.flash('error', err)
             // redirect to books page
-            res.redirect('/portfolios')
+            res.redirect('/resume')
         } else {
             // set flash message
-            req.flash('success', 'Item successfully deleted! ID = ' + id)
+            req.flash('success', 'resume item successfully deleted! ID = ' + id)
             // redirect to books page
-            res.redirect('/portfolios')
+            res.redirect('/resume')
         }
     })
 })
