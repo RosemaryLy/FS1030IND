@@ -2,8 +2,8 @@ const fs = require('fs');
 
 module.exports = {
     addPlayerPage: (req, res) => {
-        res.render('add-player.ejs', {
-            title: "Welcome to Socka | Add a new player"
+        res.render('addPortfolio.ejs', {
+            title: "Add a portfolio"
             ,message: ''
         });
     },

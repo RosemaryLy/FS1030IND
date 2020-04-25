@@ -8,8 +8,8 @@ const session = require('express-session');
 const app = express();
 
 const {getHomePage} = require('./routes/index');
-const {addPortfolio, addPortfolioPage, DeletePortfolio, editPortfolio, editPortfolioPage} = require ('./routes/portfolio');
-const {addResume, addResumePage, DeleteResume, editResume, editResumePage} =require('./routes/resume')
+const {addPortfolio, addPortfolioPage, DeletePortfolio, editPortfolio, editPortfolioPage} = require ('./routes/Portfolio');
+const {addResume, addResumePage, DeleteResume, editResume, editResumePage} =require('./routes/Resume')
 
 const PORT = process.env.PORT || 8000;
 
@@ -81,7 +81,7 @@ app.get('/delete/:id', DeleteResume);
 app.post('/add', addResume);
 app.post('/edit/:id', editResume);
 
-const PORT = process.env.PORT || 8000;
+
 
 //set the app to listen on the port
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
