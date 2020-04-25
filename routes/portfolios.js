@@ -2,23 +2,23 @@ var express = require('express');
 var router = express.Router();
 var dbConn  = require('../config/db');
  
-// display books page
+// display portfolios page
 router.get('/', function(req, res, next) {
       
     dbConn.query('SELECT * FROM portfolios ORDER BY id desc',function(err,rows)     {
  
         if(err) {
             req.flash('error', err);
-            // render to views/books/index.ejs
+            // render to views/portfolios/index.ejs
             res.render('portfolios',{data:''});   
         } else {
-            // render to views/books/index.ejs
+            // render to views/portfolios/index.ejs
             res.render('portfolios',{data:rows});
         }
     });
 });
 
-// display add book page
+// display add portfolio page
 router.get('/add', function(req, res, next) {    
     // render to add.ejs
     res.render('portfolios/add', {
@@ -27,7 +27,7 @@ router.get('/add', function(req, res, next) {
     })
 })
 
-// add a new book
+// add a new portfolio item
 router.post('/add', function(req, res, next) {    
 
     let name = req.body.name;
@@ -38,7 +38,7 @@ router.post('/add', function(req, res, next) {
         errors = true;
 
         // set flash message
-        req.flash('error', "Please enter name and author");
+        req.flash('error', "Please enter name and description");
         // render to add.ejs with flash message
         res.render('portfolios/add', {
             name: name,
@@ -66,14 +66,14 @@ router.post('/add', function(req, res, next) {
                     description: form_data.description                   
                 })
             } else {                
-                req.flash('success', 'Book successfully added');
+                req.flash('success', 'portfolio item successfully added');
                 res.redirect('/portfolios');
             }
         })
     }
 })
 
-// display edit book page
+// display edit portfolio page
 router.get('/edit/(:id)', function(req, res, next) {
 
     let id = req.params.id;
@@ -90,7 +90,7 @@ router.get('/edit/(:id)', function(req, res, next) {
         else {
             // render to edit.ejs
             res.render('portfolios/edit', {
-                title: 'Edit Book', 
+                title: 'Edit Portfolio Item', 
                 id: rows[0].id,
                 name: rows[0].name,
                 description: rows[0].description
@@ -99,7 +99,7 @@ router.get('/edit/(:id)', function(req, res, next) {
     })
 })
 
-// update book data
+// update Portfolio data
 router.post('/update/:id', function(req, res, next) {
 
     let id = req.params.id;
@@ -111,7 +111,7 @@ router.post('/update/:id', function(req, res, next) {
         errors = true;
         
         // set flash message
-        req.flash('error', "Please enter name and author");
+        req.flash('error', "Please enter name and description");
         // render to add.ejs with flash message
         res.render('portfolios/edit', {
             id: req.params.id,
@@ -140,14 +140,14 @@ router.post('/update/:id', function(req, res, next) {
                     description: form_data.description
                 })
             } else {
-                req.flash('success', 'Book successfully updated');
+                req.flash('success', 'portfolio item successfully updated');
                 res.redirect('/portfolios');
             }
         })
     }
 })
    
-// delete book
+// delete portoflio item
 router.get('/delete/(:id)', function(req, res, next) {
 
     let id = req.params.id;
