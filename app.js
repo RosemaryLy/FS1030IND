@@ -11,14 +11,15 @@ var connection  = require('./config/db');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var portfolioRouter = require('./routes/portfolio');
+var portfoliosRouter = require('./routes/portfolios');
 
-var port = 8000;
 var app = express();
+const port = 5000;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('port', process.env.port || port);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -26,7 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({
+app.use(session({ 
     cookie: { maxAge: 60000 },
     store: new session.MemoryStore,
     saveUninitialized: true,
@@ -38,7 +39,7 @@ app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/portfolio', portfolioRouter);
+app.use('/portfolios', portfoliosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -56,9 +57,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// set the app to listen on the port
 app.listen(port, () => {
-    console.log(`Server running on port: ${port}`);
+  console.log(`Server running on port: ${port}`);
 });
 
 module.exports = app;
