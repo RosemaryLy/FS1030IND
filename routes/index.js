@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'My Admin Panel' });
+  res.render('index', { title: 'The Admin Panel' });
 });
 
 module.exports = router;
