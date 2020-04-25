@@ -14,11 +14,11 @@
                 <tbody>
                     <% portfolios.forEach((portfolio, index) => { %>
                         <tr>
-                            <th scope="row"><%= portfolio.id %></th>
+                            <th scope="row"><%= portfolio.Id %></th>
                             <td><img src="/assets/img/<%= portfolio.image %>" class="rounded-circle player-img" alt=""></td>
-                            <td><%= portfolio.name %></td>
-                            <td><%= portfolio.description%></td>
-                            <td><%= portfolio.link %></td>
+                            <td><%= portfolios.name %></td>
+                            <td><%= portfolios.description%></td>
+                            <td><%= portfolios.link %></td>
                             <td>
                                 <a href="/edit/<%= portfolio.id %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">Edit</a>
                                 <a href="/delete/<%= portfolio.id %>" class="btn btn-sm btn-danger">Delete</a>

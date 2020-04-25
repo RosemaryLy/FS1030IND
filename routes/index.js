@@ -9,7 +9,7 @@ module.exports = {
             }
             res.render('index.ejs', {
                 title: "Welcome to Socka | View Players"
-                ,players: result
+                ,portfolios: result
             });
         });
     },
