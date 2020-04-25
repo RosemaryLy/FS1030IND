@@ -21,7 +21,7 @@ module.exports = {
         let fileExtension = uploadedFile.mimetype.split('/')[1];
         image_name = username + '.' + fileExtension;
 
-        let usernameQuery = "SELECT * FROM `portfolio` WHERE user_name = '" + username + "'";
+        let usernameQuery = "SELECT * FROM `portfolios` WHERE user_name = '" + username + "'";
 
         db.query(usernameQuery, (err, result) => {
             if (err) {
@@ -42,7 +42,7 @@ module.exports = {
                             return res.status(500).send(err);
                         }
                         // send the player's details to the database
-                        let query = "INSERT INTO `portfolio` (name, description, image, user_name) VALUES ('" +
+                        let query = "INSERT INTO `portfolios` (name, description, image, user_name) VALUES ('" +
                             name + "', '" + description + "', '" + image_name + "', '" + username + "')";
                         db.query(query, (err, result) => {
                             if (err) {
@@ -63,7 +63,7 @@ module.exports = {
     },
     editPortfolioPage: (req, res) => {
         let portfolioId = req.params.id;
-        let query = "SELECT * FROM `portfolio` WHERE id = '" + portfolioId + "' ";
+        let query = "SELECT * FROM `portfolios` WHERE id = '" + portfolioId + "' ";
         db.query(query, (err, result) => {
             if (err) {
                 return res.status(500).send(err);
@@ -81,7 +81,7 @@ module.exports = {
         let description = req.body.description;
         
 
-        let query = "UPDATE `portfolio` SET `name` = '" + name + "', `description` = '" + description + "' " + "' WHERE `portfolio`.`id` = '" + portfolioId + "'";
+        let query = "UPDATE `portfolios` SET `name` = '" + name + "', `description` = '" + description + "' " + "' WHERE `portfolio`.`id` = '" + portfolioId + "'";
         db.query(query, (err, result) => {
             if (err) {
                 return res.status(500).send(err);
@@ -91,7 +91,7 @@ module.exports = {
     },
     deletePortfolio: (req, res) => {
         let portfolioId = req.params.id;
-        let getImageQuery = 'SELECT image from `portfolio` WHERE id = "' + portfolioId + '"';
+        let getImageQuery = 'SELECT image from `portfolios` WHERE id = "' + portfolioId + '"';
         let deleteUserQuery = 'DELETE FROM portfolio WHERE id = "' + portfolioId + '"';
 
         db.query(getImageQuery, (err, result) => {
