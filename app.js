@@ -13,6 +13,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var portfoliosRouter = require('./routes/portfolios');
 var resumeRouter= require ('./routes/resume');
+var contactlistingRouter= require('./routes/contactlisting')
 
 var app = express();
 const port = 5000;
@@ -42,6 +43,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/portfolios', portfoliosRouter);
 app.use('/resume', resumeRouter);
+app.use('contactlisting', contactlistingRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
