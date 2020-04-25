@@ -1,0 +1,32 @@
+<%- include ('partials/header.ejs'); -%>
+<div class="container">
+    <% if (message) { %>
+        <p class="text-center text-danger"><%= message %></p>
+    <% } %>
+
+    <% if (portfolio) { %>
+        <form class="add-player-form" action="" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" name="name" id="name" value="<%= portfolio.name %>" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" name="description" id="description" value="<%= portfolio.description %>" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="link">GitHub Link</label>
+                    <input type="text" class="form-control" name="link" id="link" value="<%= portfolio.link %>" required disabled title="Username cannot be edited.">
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-success float-right">Update Player</button>
+        </form>
+    <% } else { %>
+        <p class="text-center">Player Not Found. Go <a href="/add">here</a> to add players.</p>
+    <% } %>
+</div>
+</div>
+</body>
+</html>
