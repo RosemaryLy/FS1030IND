@@ -1,15 +1,16 @@
-const express = require('express');
-const router = express.Router();
+module.exports = {
+  getHomePage: (req, res) => {
+      let query = "SELECT * FROM `players` ORDER BY id ASC"; // query database to get all the players
 
-
-// Welcome Page
-router.get('/',  (req, res) => res.render('welcome'));
-
-// Dashboard
-router.get('/dashboard',  (req, res) =>
-  res.render('dashboard', {
-    user: req.user
-  })
-);
-
-module.exports = router;
+      // execute query
+      db.query(query, (err, result) => {
+          if (err) {
+              res.redirect('/');
+          }
+          res.render('index.ejs', {
+              title: "Welcome to Socka | View Players"
+              ,players: result
+          });
+      });
+  },
+};
