@@ -1,32 +1,37 @@
-<%- include ('partials/header.ejs'); -%>
-<div class="container">
-    <% if (message) { %>
-        <p class="text-center text-danger"><%= message %></p>
-    <% } %>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Edit Book</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body class="container" style="margin-top: 50px;">
 
-    <% if (portfolio) { %>
-        <form class="add-player-form" action="" method="post" enctype="multipart/form-data">
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" name="name" id="name" value="<%= portfolio.name %>" required>
+	<% if (messages.error) { %>
+	<div class="alert alert-danger" role="alert"><%- messages.error %></div>
+	<% } %>
+
+    <div class="card">
+    	<div class="card-header">
+			Edit Book
+		</div>
+        <div class="card-body">
+            <form action="/books/update/<%= id %>" method="post">
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" class="form-control" name="name" value="<%= name %>" autocomplete="off">
                 </div>
-                <div class="form-group col-md-4">
-                    <label for="description">Description</label>
-                    <input type="text" class="form-control" name="description" id="description" value="<%= portfolio.description %>" required>
+                <div class="form-group">
+                    <label>Author:</label>
+                    <input type="text" class="form-control" name="author" value="<%= author %>" autocomplete="off">
                 </div>
-                <div class="form-group col-md-4">
-                    <label for="link">GitHub Link</label>
-                    <input type="text" class="form-control" name="link" id="link" value="<%= portfolio.link %>" required disabled title="Username cannot be edited.">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-info" value="Update"/>
                 </div>
-            </div>
-            
-            <button type="submit" class="btn btn-success float-right">Update Player</button>
-        </form>
-    <% } else { %>
-        <p class="text-center">Player Not Found. Go <a href="/add">here</a> to add players.</p>
-    <% } %>
-</div>
-</div>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>

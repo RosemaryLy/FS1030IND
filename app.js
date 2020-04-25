@@ -1,52 +1,64 @@
-const express = require('express');
-const fileUpload = require('express-fileupload');
-const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const path = require('path');
-const app = express();
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 
-const {getHomePage} = require('./routes/index');
-const {addPortfolioPage, addPortfolio, deletePortfolio, editPortfolio, editPortfolioPage} = require('./routes/player');
-const port = 5000;
+var flash = require('express-flash');
+var session = require('express-session');
+var mysql = require('mysql');
+var connection  = require('./config/db');
 
-// create connection to database
-// the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
-const db = mysql.createConnection ({
-    host: 'localhost',
-    user: 'nodeclient',
-    password: '123456',
-    database: 'fs1030'
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var booksRouter = require('./routes/books');
+
+var port = 8000;
+var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+    cookie: { maxAge: 60000 },
+    store: new session.MemoryStore,
+    saveUninitialized: true,
+    resave: 'true',
+    secret: 'secret'
+}))
+
+app.use(flash());
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/books', booksRouter);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
 });
 
-// connect to database
-db.connect((err) => {
-    if (err) {
-        throw err;
-    }
-    console.log('Connected to database');
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
-
-global.db = db;
-
-// configure middleware
-app.set('port', process.env.port || port); // set express to use this port
-app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
-app.set('view engine', 'ejs'); // configure template engine
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); // parse form data client
-app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
-app.use(fileUpload()); // configure fileupload
-
-// routes for the app
-
-app.get('/', getHomePage);
-app.get('/add', addPortfolioPage);
-app.get('/edit/:id', editPortfolioPage);
-app.get('/delete/:id', deletePortfolio);
-app.post('/add', addPortfolio);
-app.post('/edit/:id', editPortfolio);
 
 // set the app to listen on the port
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
 });
+
+module.exports = app;
