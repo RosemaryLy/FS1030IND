@@ -46,10 +46,12 @@
                 <tr>
                     <th scope="row"><%= (i+1) %></th>
                     <td><%= data[i].date%></td>
+                    <td><%= data[i].employer%></td>
+                    <td><%= data[i].position%></td>
                     <td><%= data[i].description%></td>
                     <td>
-                        <a class="btn btn-success edit" href="../portfolios/edit/<%=data[i].id%>">Edit</a>                       
-                        <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="../portfolios/delete/<%=data[i].id%>">Delete</a>                       
+                        <a class="btn btn-success edit" href="../resume/edit/<%=data[i].id%>">Edit</a>                       
+                        <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="../resume/delete/<%=data[i].id%>">Delete</a>                       
                     </td>
                 </tr>
             <% } %>
