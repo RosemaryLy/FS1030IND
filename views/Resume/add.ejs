@@ -11,7 +11,23 @@
 	<% if (messages.error) { %>
 	<div class="alert alert-danger" role="alert"><%- messages.error %></div>
 	<% } %>
-
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link " href="/dashboard">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/portfolios">Portfolio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/resume">Resume</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/contactlisting">Contact Listing</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/">Log Out</a>
+          </li>
+      </ul>
     <div class="card"> 
     	<div class="card-header">
 			Add Resume Item

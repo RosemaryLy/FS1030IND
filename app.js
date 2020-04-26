@@ -10,7 +10,7 @@ var mysql = require('mysql');
 var connection  = require('./config/db');
 
 var indexRouter = require('./routes/index');
-var dashboardRouter = require('/routes/dashboard');
+var dashboardRouter = require('./routes/dashboard');
 var usersRouter = require('./routes/users');
 var portfoliosRouter = require('./routes/portfolios');
 var resumeRouter= require ('./routes/resume');

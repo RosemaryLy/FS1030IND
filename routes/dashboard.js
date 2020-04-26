@@ -1,12 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-//Get dashboard
-router.get('/', function(req, res, next) {    
-    // render to add.ejs
-    res.render('dashboard', {
-           
-    })
-})
+/* GET home page. */
+router.get('/', function(req, res) {  res.render('dashboard');});
 
 module.exports = router;
