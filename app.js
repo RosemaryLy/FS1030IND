@@ -10,6 +10,7 @@ var mysql = require('mysql');
 var connection  = require('./config/db');
 
 var indexRouter = require('./routes/index');
+var dashboardRouter = require('/routes/dashboard');
 var usersRouter = require('./routes/users');
 var portfoliosRouter = require('./routes/portfolios');
 var resumeRouter= require ('./routes/resume');
@@ -40,6 +41,7 @@ app.use(session({
 app.use(flash());
 
 app.use('/', indexRouter);
+app.use('/dashboard', dashboardRouter);
 app.use('/users', usersRouter);
 app.use('/portfolios', portfoliosRouter);
 app.use('/resume', resumeRouter);
