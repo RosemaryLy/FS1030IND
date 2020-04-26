@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var dbConn  = require('../config/db');
+const express = require('express');
+const router = express.Router();
+const dbConn  = require('../config/db');
  
 // display contactlisting page
 router.get('/', function(req, res, next) {

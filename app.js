@@ -1,22 +1,22 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var flash = require('express-flash');
-var session = require('express-session');
-var mysql = require('mysql');
-var connection  = require('./config/db');
+const flash = require('express-flash');
+const session = require('express-session');
+const mysql = require('mysql');
+const connection  = require('./config/db');
 
-var indexRouter = require('./routes/index');
-var dashboardRouter = require('./routes/dashboard');
-var usersRouter = require('./routes/users');
-var portfoliosRouter = require('./routes/portfolios');
-var resumeRouter= require ('./routes/resume');
-var contactlistingRouter= require('./routes/contactlisting');
+const indexRouter = require('./routes/index');
+const dashboardRouter = require('./routes/dashboard');
+const usersRouter = require('./routes/users');
+const portfoliosRouter = require('./routes/portfolios');
+const resumeRouter= require ('./routes/resume');
+const contactlistingRouter= require('./routes/contactlisting');
 
-var app = express();
+const app = express();
 const port = 5000;
 
 // view engine setup

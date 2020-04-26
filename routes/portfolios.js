@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var dbConn  = require('../config/db');
+const express = require('express');
+const router = express.Router();
+const dbConn  = require('../config/db');
  
 // display portfolios page
 router.get('/', function(req, res, next) {
@@ -52,7 +52,7 @@ router.post('/add', function(req, res, next) {
     // if no error
     if(!errors) {
 
-        var form_data = {
+        const form_data = {
             name: name,
             description: description,
             link: link
@@ -131,7 +131,7 @@ router.post('/update/:id', function(req, res, next) {
     // if no error
     if( !errors ) {   
  
-        var form_data = {
+        let form_data = {
             name: name,
             description: description,
             link: link
