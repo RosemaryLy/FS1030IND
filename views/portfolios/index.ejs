@@ -36,6 +36,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Link</th>
                     <th width="200px">Action</th>
                 </tr>
             </thead>
@@ -45,6 +46,7 @@
                     <th scope="row"><%= (i+1) %></th>
                     <td><%= data[i].name%></td>
                     <td><%= data[i].description%></td>
+                    <td><%=data[i].link%></td>
                     <td>
                         <a class="btn btn-success edit" href="../portfolios/edit/<%=data[i].id%>">Edit</a>                       
                         <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="../portfolios/delete/<%=data[i].id%>">Delete</a>                       

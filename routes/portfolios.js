@@ -23,7 +23,8 @@ router.get('/add', function(req, res, next) {
     // render to add.ejs
     res.render('portfolios/add', {
         name: '',
-        description: ''        
+        description: '',
+        link: '' ,     
     })
 })
 
@@ -32,6 +33,7 @@ router.post('/add', function(req, res, next) {
 
     let name = req.body.name;
     let description = req.body.description;
+    let link= req.body.link;
     let errors = false;
 
     if(description.length === 0 || description.length === 0) {
@@ -42,7 +44,8 @@ router.post('/add', function(req, res, next) {
         // render to add.ejs with flash message
         res.render('portfolios/add', {
             name: name,
-            description: description
+            description: description,
+            link: link
         })
     }
 
@@ -51,7 +54,8 @@ router.post('/add', function(req, res, next) {
 
         var form_data = {
             name: name,
-            description: description
+            description: description,
+            link: link
         }
         
         // insert query
@@ -63,7 +67,8 @@ router.post('/add', function(req, res, next) {
                 // render to add.ejs
                 res.render('portfolios/add', {
                     name: form_data.name,
-                    description: form_data.description                   
+                    description: form_data.description ,
+                    link: form_data.link                  
                 })
             } else {                
                 req.flash('success', 'portfolio item successfully added');
@@ -86,14 +91,15 @@ router.get('/edit/(:id)', function(req, res, next) {
             req.flash('error', 'Book not found with id = ' + id)
             res.redirect('/portfolios')
         }
-        // if book found
+        // if portfolio found
         else {
             // render to edit.ejs
             res.render('portfolios/edit', {
                 title: 'Edit Portfolio Item', 
                 id: rows[0].id,
                 name: rows[0].name,
-                description: rows[0].description
+                description: rows[0].description,
+                link: rows[0].link
             })
         }
     })
@@ -105,6 +111,7 @@ router.post('/update/:id', function(req, res, next) {
     let id = req.params.id;
     let name = req.body.name;
     let description = req.body.description;
+    let link = req.body.link;
     let errors = false;
 
     if(name.length === 0 || description.length === 0) {
@@ -116,7 +123,8 @@ router.post('/update/:id', function(req, res, next) {
         res.render('portfolios/edit', {
             id: req.params.id,
             name: name,
-            description: description
+            description: description,
+            link: link,
         })
     }
 
@@ -125,7 +133,8 @@ router.post('/update/:id', function(req, res, next) {
  
         var form_data = {
             name: name,
-            description: description
+            description: description,
+            link: link
         }
         // update query
         dbConn.query('UPDATE portfolios SET ? WHERE id = ' + id, form_data, function(err, result) {
@@ -137,7 +146,8 @@ router.post('/update/:id', function(req, res, next) {
                 res.render('portfolios/edit', {
                     id: req.params.id,
                     name: form_data.name,
-                    description: form_data.description
+                    description: form_data.description,
+                    link: form_data.link
                 })
             } else {
                 req.flash('success', 'portfolio item successfully updated');

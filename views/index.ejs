@@ -5,7 +5,23 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>Welcome</h1>
-    <p>Welcome to <%= title %><br><br><a href="/portfolios">Portfolio Panel</a><br> <a href="/resume">Resume Panel </a></p>
-  </body>
+    
+      <h1>Login form</h1>
+      <form name="form1" method="POST" action="/student/add">
+      <table>
+          <tr>
+          <td>First name</td>
+          <td><input type="text" name="fname" ></td>
+          </tr>
+          <tr>
+          <td>last name</td>
+          <td><input type="text" name="lname" ></td>
+          </tr>
+          <tr>
+          <td colspan="2"><input type="submit" value="Save" ></td>
+          </tr>
+      </table>
+      </form>   
+      
+  
 </html>
